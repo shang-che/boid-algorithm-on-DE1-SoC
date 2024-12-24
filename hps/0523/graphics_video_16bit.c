@@ -44,6 +44,29 @@
 // #define HW_REGS_SPAN        0x00200000
 #define HW_REGS_SPAN 0x00005000
 
+// PIO ports
+volatile unsigned int *right_audio = NULL;
+volatile unsigned int *left_audio = NULL;
+volatile unsigned int *debug1 = NULL;
+volatile unsigned int *debug2 = NULL;
+volatile unsigned int *debug3 = NULL;
+volatile unsigned int *freq1 = NULL;
+volatile unsigned int *freq2 = NULL;
+volatile unsigned int *freq3 = NULL;
+volatile unsigned int *freq4 = NULL;
+volatile unsigned int *freq5 = NULL;
+
+// PIO ports base address offsets
+#define RIGHT_AUDIO_OFFSET 0x10
+#define DEBUG1_OFFSET 0x20
+#define DEBUG2_OFFSET 0x30
+#define DEBUG3_OFFSET 0x40
+#define FREQ1_OFFSET 0x50
+#define FREQ2_OFFSET 0x60
+#define FREQ3_OFFSET 0x70
+#define FREQ4_OFFSET 0x80
+#define FREQ5_OFFSET 0x90
+
 // graphics primitives
 void VGA_text(int, int, char *);
 void VGA_text_clear();
@@ -270,6 +293,13 @@ int main(void) {
 
     // Get the address that maps to the FPGA pixel buffer
     vga_pixel_ptr = (unsigned int *)(vga_pixel_virtual_base);
+
+    // get freq address pointer
+    freq1 = (unsigned int *)(h2p_lw_virtual_base + FREQ1_OFFSET);
+    freq2 = (unsigned int *)(h2p_lw_virtual_base + FREQ2_OFFSET);
+    freq3 = (unsigned int *)(h2p_lw_virtual_base + FREQ3_OFFSET);
+    freq4 = (unsigned int *)(h2p_lw_virtual_base + FREQ4_OFFSET);
+    freq5 = (unsigned int *)(h2p_lw_virtual_base + FREQ5_OFFSET);
 
     // ===========================================
 
